@@ -20,7 +20,7 @@
                                         <div class="inner">
                                             <p>{{ strtoupper($election->title) }}</p>
                                         </div>
-                                                <a href="#" class="small-box-footer">
+                                            <a href="{{route('election.index', $election->slug)}}" class="small-box-footer">
                                                     Ingresar
                                                     <i class="fas fa-arrow-circle-right ml-1"></i>
                                                 </a>

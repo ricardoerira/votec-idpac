@@ -15,7 +15,8 @@ class CreateElectionsTable extends Migration
     {
         Schema::create('elections', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('title');
+            $table->string('title')->unique();
+            $table->string('slug')->unique();
             $table->string('description');
             $table->boolean('status')->default(0);;
             $table->dateTime('dateStart_candidates');
