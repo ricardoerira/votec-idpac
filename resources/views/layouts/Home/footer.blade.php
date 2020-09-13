@@ -1,4 +1,4 @@
-<footer class="row justify-content-center text-black-50 text-center py-3 shadow">
+<footer class="row justify-content-center text-black-50 text-center py-4 shadow">
 
     <strong style="font-size: 12px;">
         <font style="vertical-align: inherit;">

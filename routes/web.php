@@ -37,3 +37,5 @@ Route::get('/reporteDeSalud/{header:slug}', 'Home\ProfileController@editReporte'
 
 //Route Elections
 Route::get('/{slug}', 'Home\ElectionController@index')->name('election.index');
+Route::get('inscripcion/{slug}/{type}', 'Home\ElectionController@inscription')->name('election.inscription');
+Route::put('inscripcion/{slug}/{type}', 'Home\ElectionController@add')->name('election.add');
