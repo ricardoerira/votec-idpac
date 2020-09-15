@@ -50,7 +50,7 @@
 
                               <ul class="list-group list-group-unbordered mb-3">
                                 <li class="list-group-item">
-                                  <b>Inscripcion elecciones</b> <a class="float-right"></a>
+                                  <b>Inscripcion elecciones </b> <a class="float-right"></a>
                                 </li>
                                 <li class="list-group-item">
                                   <b>Candidaturas</b> <a class="float-right"></a>
