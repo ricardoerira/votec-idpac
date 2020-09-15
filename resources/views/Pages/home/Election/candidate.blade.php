@@ -14,7 +14,7 @@
       <li class="breadcrumb-item active">{{ ucwords($type) }}</li>
     </ol>
   </div>
-  <form action="{{ route('election.add',  ['slug' => $election[0]->slug, 'type'=>'candidato',]) }}" method="POST" role="form" class="form-inline">
+  <form action="{{ route('election.add',  ['slug' => $election[0]->slug, 'type'=>'candidato',]) }}" method="POST" role="form" class="form-inline" enctype="multipart/form-data">
         @csrf
         @method('PUT')
         <div class="container mt-4">
@@ -148,12 +148,24 @@
                       <input type="email" name="email" class="form-control fontform" id="email" value="{{ auth()->user()->email }}"  size="28" readonly>
                   </div>
             </div>
+            <div class="form-group mx-sm-4">
+              <label for="inputEmail" class="js-form-required form-required fontform mx-sm-2">Documento de identidad</label>
+                <input type="file" name="path" class="form-control fontform" id="path" accept= ".pdf, .doc">
             </div>
+          </div>
 
         <div class="w-75 mx-auto pb-4">
           <div>
               <button type="submit" class="btn btn-primary m-auto">Guardar</button>
           </div>
+      </div>
+      <div>
+        <h1>Requisitos</h1>
+        @foreach($requirements as $requirement)
+          <div>
+            @include('pages.home.election.inputs.index')
+          </div>
+        @endforeach
       </div>
     </form>
 </body>

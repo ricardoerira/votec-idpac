@@ -5,7 +5,10 @@ namespace App\Http\Controllers\Home;
 use App\Http\Controllers\Controller;
 use App\Models\Election;
 use App\Models\Person;
+use App\Models\Requirement;
 use Illuminate\Http\Request;
+use Storage;
+use Illuminate\Support\Facades\Validator;
 
 class ElectionController extends Controller
 {
@@ -14,7 +17,7 @@ class ElectionController extends Controller
     {
         $this->middleware('auth');
     }
-    
+
     public function index (string $slug){
         $election = Election::where('slug', $slug)->get();
         return view('pages.home.election.index', compact('election'));
@@ -23,10 +26,12 @@ class ElectionController extends Controller
     public function inscription (string $slug, string $type){
         $election = Election::where('slug', $slug)->get();
         $inf = Person::where('id_user', auth()->user()->id)->get();
-        return view('pages.home.election.candidate', compact('type', 'election', 'inf'));
+        $requirements = Requirement::where('id_election', $election[0]->id)->get();
+        return view('pages.home.election.candidate', compact('type', 'election', 'inf', 'requirements'));
     }
 
     public function add (Request $request){
+        return $request;
         Person::where('id_user', auth()->user()->id)->update([
             'name' => $request->name,
             'lastname' => $request->lastname,
