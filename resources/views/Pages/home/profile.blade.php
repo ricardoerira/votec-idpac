@@ -136,7 +136,7 @@
     
                                           <div class="form-group mx-sm-4">
                                             <label for="inputName" class="js-form-required form-required fontform mx-sm-2">Direccion</label>
-                                              <input type="text" name="address" class="form-control fontform" id="address" value="{{ old('name') }}" readonly>
+                                              <input type="text" name="address" class="form-control fontform" id="address" value="{{$inf[0]->address}}" readonly>
                                           </div>
                                     </div>
                                       
@@ -181,7 +181,7 @@
                                     <div class="row my-sm-2">
                                         <div class="form-group mx-sm-4">
                                             <label for="inputEmail" class="js-form-required form-required fontform mx-sm-2">Email</label>
-                                              <input type="email" name="email" class="form-control fontform" id="email" value=""  size="28" readonly>
+                                        <input type="email" name="email" class="form-control fontform" id="email" value="{{auth()->user()->email}}"  size="28" readonly>
                                           </div>
                                     </div>
                                   </form>
