@@ -24,12 +24,14 @@
             </div>
             @include('layouts.home.election.dataGeneral')
       <div>
-        <h1>Requisitos</h1>
-        @foreach($requirements as $requirement)
-          <div>
-            @include('pages.home.election.inputs.index')
-          </div>
-        @endforeach
+        @if($requirements->count() > 0)
+          <h1>Requisitos</h1>
+          @foreach($requirements as $requirement)
+            <div>
+              @include('pages.home.election.inputs.index')
+            </div>
+          @endforeach
+        @endif
       </div>
   </form>
   <div class="w-75 mx-auto pb-4">

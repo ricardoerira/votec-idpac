@@ -37,7 +37,7 @@ if (!function_exists('checkTypeInput')) {
 }
 
 if (!function_exists('setElectionUser')) {
-    function setElectionUser(int $idUser, int $election, int $idType, array $requirement)
+    function setElectionUser(int $idUser, int $election, int $idType, array $requirement = null)
     {
         if((ElectionUser::where('id_person', $idUser)->where('id_election', $election)->where('id_userType', $idType)->get())->count() > 0){
             $electionUser = (ElectionUser::where('id_person', $idUser)->where('id_election', $election)->where('id_userType', $idType)->pluck('id'))[0];
@@ -49,25 +49,27 @@ if (!function_exists('setElectionUser')) {
                 'enabled' => 0,
             ]);
         }
-        foreach ($requirement as $key => $index){
+        if ($requirement <> null){
+            foreach ($requirement as $key => $index){
 
-            if ((DataRequirement::where('id_electionUser', $electionUser)->where('id_requirement', $key)->get())->count() > 0){
-                DataRequirement::where('id_electionUser', $electionUser)->where('id_requirement', $key)->update([
-                    checkTypeInput($key) => $index,
-                ]);
-            }else{
-                if(checkTypeInput($key) == 'text'){
-                    DataRequirement::create([
-                        'id_requirement' => $key,
-                        'id_electionUser' => $electionUser,
-                        'text' => $index,
+                if ((DataRequirement::where('id_electionUser', $electionUser)->where('id_requirement', $key)->get())->count() > 0){
+                    DataRequirement::where('id_electionUser', $electionUser)->where('id_requirement', $key)->update([
+                        checkTypeInput($key) => $index,
                     ]);
                 }else{
-                    DataRequirement::create([
-                        'id_requirement' => $key,
-                        'id_electionUser' => $electionUser,
-                        'id_choice' => $index,
-                    ]);
+                    if(checkTypeInput($key) == 'text'){
+                        DataRequirement::create([
+                            'id_requirement' => $key,
+                            'id_electionUser' => $electionUser,
+                            'text' => $index,
+                        ]);
+                    }else{
+                        DataRequirement::create([
+                            'id_requirement' => $key,
+                            'id_electionUser' => $electionUser,
+                            'id_choice' => $index,
+                        ]);
+                    }
                 }
             }
         }

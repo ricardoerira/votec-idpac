@@ -27,12 +27,13 @@ class ElectionController extends Controller
     public function inscription (string $slug, string $type){
         $election = Election::where('slug', $slug)->get();
         $inf = Person::where('id_user', auth()->user()->id)->get();
-        $requirements = Requirement::where('id_election', $election[0]->id)->get();
+        
         if($type == 'candidato'){
             $idType = 1;
         }else{
             $idType = 2;
         }
+        $requirements = Requirement::where('id_election', $election[0]->id)->where('id_typeUser', $idType)->get();
         return view('pages.home.election.candidate', compact('type', 'election', 'inf', 'requirements', 'idType'));
     }
 
@@ -48,13 +49,16 @@ class ElectionController extends Controller
             'address' => $request->address,
             'phone' => $request->phone,
             'gender_identity' => $request->gender_identity,
-            'id_disability' => $request->date_birth,
-            'id_groupP' => $request->date_birth,
-            'occupation' => $request->date_birth,
+            'id_disability' => $request->id_disability,
+            'id_groupP' => $request->id_groupP,
+            'occupation' => $request->occupation,
         ]);
-//        Update o create requirements, opc(create electionUser)
-        setElectionUser($person, Election::where('slug', $slug)->pluck('id')[0], $type, $request->requirement);
 
-        
+//        Update o create requirements, opc(create electionUser)
+        if ($request->requirement <> null){
+            setElectionUser($person, Election::where('slug', $slug)->pluck('id')[0], $type, $request->requirement);
+        }else{
+            setElectionUser($person, Election::where('slug', $slug)->pluck('id')[0], $type);
+        }
     }
 }
