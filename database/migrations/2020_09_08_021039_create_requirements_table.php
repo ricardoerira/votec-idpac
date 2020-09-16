@@ -39,10 +39,17 @@ class CreateRequirementsTable extends Migration
                 ->references('id')->on('type_users');
         });
 
+        Schema::create('choices', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('name');
+            $table->timestamps();
+        });
+
         Schema::create('data_requirements', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('id_requirement')->unsigned();
             $table->integer('id_electionUser')->unsigned();
+            $table->integer('id_choice')->unsigned();
             $table->string('text');
             $table->timestamps();
 
@@ -51,13 +58,11 @@ class CreateRequirementsTable extends Migration
 
             $table->foreign('id_electionUser')
                 ->references('id')->on('election_Users');
+            
+            $table->foreign('id_choice')
+                ->references('id')->on('choices');
         });
 
-        Schema::create('choices', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('name');
-            $table->timestamps();
-        });
 
         Schema::create('choice_requirements', function (Blueprint $table) {
             $table->increments('id');

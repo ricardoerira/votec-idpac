@@ -41,7 +41,7 @@ class User extends Authenticatable
 
     public function IdentificationTypes()
     {
-        return $this->hasMany(Identification_Type::class, 'id_identificationType');
+        return $this->belongsTo(Identification_Type::class, 'id_identificationType');
     }
 
     public function roles()

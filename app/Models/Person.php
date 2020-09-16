@@ -17,4 +17,16 @@ class Person extends Model
     {
         return $this->hasOne(User::class, 'id_user');
     }
+
+    public function localities(){
+        return $this->belongsTo(Choice::class, 'id_location');
+    }
+
+    public function groupPopulations(){
+        return $this->belongsTo(GroupPopulation::class, 'id_groupP');
+    }
+
+    public function disabilities(){
+        return $this->belongsTo(Disability::class, 'id_disability');
+    }
 }

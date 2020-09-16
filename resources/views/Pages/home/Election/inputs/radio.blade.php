@@ -1,4 +1,4 @@
-<fieldset id="r{{$requirement->id}}">
+<fieldset name="requirement[{{$requirement->id}}]">
     <div class="form-check">
         @foreach (optionChoice( $requirement->id ) as $item)
         <input

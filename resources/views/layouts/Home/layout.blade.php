@@ -99,6 +99,7 @@
     @endif
 
     @yield('content')
+
     <!-- Footer -->
     @include('layouts.home.footer')
     <!-- /.Footer -->

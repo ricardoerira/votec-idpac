@@ -50,7 +50,7 @@
 
                               <ul class="list-group list-group-unbordered mb-3">
                                 <li class="list-group-item">
-                                  <b>Inscripcion elecciones </b> <a class="float-right"></a>
+                                  <b>Inscripcion elecciones</b> <a class="float-right"></a>
                                 </li>
                                 <li class="list-group-item">
                                   <b>Candidaturas</b> <a class="float-right"></a>
@@ -91,99 +91,12 @@
                                   <form action="#" method="POST" role="form" class="form-inline">
                                     @csrf
                                     @method('PUT')
-
-                                    <div class="row my-sm-2">
-                                        <div class="form-group mx-sm-4">
-                                            <label for="inputName" class="js-form-required form-required fontform mx-sm-2">Tipo de identificacion</label>
-                                              <input type="text" name="date_birth" class="form-control fontform"  value="{{ auth()->user()->id_identificationType }}" id="date_birth" size="14" readonly>
-                                          </div>
-    
-                                          <div class="form-group mx-sm-4">
-                                            <label for="inputName" class="js-form-required form-required fontform mx-sm-2">Nº identificacion</label>
-                                              <input type="text" name="name" class="form-control fontform" id="sex" value="{{ auth()->user()->identification }}" size="15" readonly>
-                                          </div>
-                                    </div>
-
-                                    <div class="row my-sm-2">
-                                        <div class="form-group form-group-lg mx-sm-4">
-                                            <label for="inputName" class="js-form-required form-required fontform mx-sm-2">Nombres</label>
-                                              <input type="name" name="name" class="form-control fontform" value="{{$inf[0]->name}}" size="20" readonly>
-                                          </div>
-      
-                                          <div class="form-group mx-sm-4">
-                                              <label for="inputName" class="js-form-required form-required fontform mx-sm-2">Apellidos</label>
-                                                <input type="text" name="lastname" class="form-control fontform" id="lastname" value="{{$inf[0]->lastname}}" size="20" readonly>
-                                            </div>
-                                    </div>
-                                    
-                                    <div class="row my-sm-2">
-                                        <div class="form-group mx-sm-4">
-                                            <label for="inputName" class="js-form-required form-required fontform mx-sm-2">Fecha de nacimiento</label>
-                                              <input type="text" name="date_birth" class="form-control fontform" value="{{$inf[0]->date_birth}}" id="date_birth" size="14" readonly>
-                                          </div>
-    
-                                          <div class="form-group mx-sm-4">
-                                            <label for="inputName" class="js-form-required form-required fontform mx-sm-2">Sexo</label>
-                                              <input type="text" name="name" class="form-control fontform" id="sex"value="{{$inf[0]->sex}}"  size="15" readonly>
-                                          </div>
-                                    </div>
-                                      
-                                    <div class="row my-sm-2">
-                                        <div class="form-group mx-sm-4">
-                                            <label for="inputName" class="js-form-required form-required fontform mx-sm-2">Localidad</label>
-                                              <input type="text" name="name" class="form-control fontform" id="locality" readonly>
-                                          </div>
-    
-                                          <div class="form-group mx-sm-4">
-                                            <label for="inputName" class="js-form-required form-required fontform mx-sm-2">Direccion</label>
-                                              <input type="text" name="address" class="form-control fontform" id="address" value="{{$inf[0]->address}}" readonly>
-                                          </div>
-                                    </div>
-                                      
-                                    <div class="row my-sm-2">
-                                        <div class="form-group mx-sm-4">
-                                            <label for="inputName" class="js-form-required form-required fontform mx-sm-2">Telefono</label>
-                                              <input type="text" name="name" class="form-control fontform" id="name" value="{{$inf[0]->phone}}"  size="12" readonly>
-                                          </div>
-    
-                                          <div class="form-group mx-sm-4">
-                                            <label for="inputName" class="js-form-required form-required fontform mx-sm-2">identidad de genero</label>
-                                              <input type="text" name="name" class="form-control fontform" id="name" value="{{ old('name') }} " readonly>
-                                          </div>
-                                    </div>
-
-                                    <div class="row my-sm-2">
-                                        <div class="form-group mx-sm-4">
-                                            <label for="inputName" class="js-form-required form-required fontform mx-sm-2">Orientacion sexual</label>
-                                              <input type="text" name="name" class="form-control fontform" id="name" size="15" readonly>
-                                          </div>
-    
-                                          <div class="form-group mx-sm-4">
-                                            <label for="inputName" class="js-form-required form-required fontform mx-sm-2">Discapacidad</label>
-                                              <input type="text" name="name" class="form-control fontform @error('name') is-invalid @enderror " id="name" value="{{ old('name') }}" readonly>
-                                          </div>
-                                    </div>
-
-
-                                    <div class="row my-sm-2">
-                                        <div class="form-group mx-sm-4">
-                                            <label for="inputName" class="js-form-required form-required fontform mx-sm-2">Grupo poblacional</label>
-                                              <input type="name" name="name" class="form-control fontform" id="name" value="{{ old('name') }}" readonly>
-                                          </div>
-    
-                                          <div class="form-group mx-sm-4">
-                                            <label for="inputName" class="js-form-required form-required fontform mx-sm-2">Ocupacion</label>
-                                              <input type="name" name="name" class="form-control fontform" id="name" value="{{ old('name') }}" size="15" readonly>
-                                          </div>
-                                    </div>
-
-                                     
-                                    <div class="row my-sm-2">
-                                        <div class="form-group mx-sm-4">
-                                            <label for="inputEmail" class="js-form-required form-required fontform mx-sm-2">Email</label>
-                                        <input type="email" name="email" class="form-control fontform" id="email" value="{{auth()->user()->email}}"  size="28" readonly>
-                                          </div>
-                                    </div>
+                                    @include('layouts.home.election.dataGeneral')
+                                    <div class="w-75 mx-auto pb-4">
+                                      <div>
+                                          <button type="submit" class="btn btn-primary m-auto">Actualizar</button>
+                                      </div>
+                                  </div>
                                   </form>
                               </div>  
                             </div>  
@@ -191,5 +104,11 @@
                         </div>
                       </div>
                     </div>
+                  </section>
+                </div>
+            </form>
+      </section>
+</section>
+
 
 @endsection

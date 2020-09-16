@@ -1,6 +1,6 @@
 <input
     type="text"
-    name="r{{$requirement->id}}"
-    id="dos"
+    name="requirement[{{$requirement->id}}]"
+    id="r{{$requirement->id}}"
     class="form-control"
 >

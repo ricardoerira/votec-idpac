@@ -34,13 +34,13 @@ class CreateElectionsTable extends Migration
 
         Schema::create('election_users', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('id_user')->unsigned();
+            $table->integer('id_person')->unsigned();
             $table->integer('id_election')->unsigned();
             $table->integer('id_userType')->unsigned();
             $table->integer('enabled');
             $table->timestamps();
 
-            $table->foreign('id_user')
+            $table->foreign('id_person')
                 ->references('id')->on('persons');
 
             $table->foreign('id_election')

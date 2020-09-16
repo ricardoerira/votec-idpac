@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Election;
 use App\Models\Person;
 use App\Models\Requirement;
+use App\Models\UserType;
 use Illuminate\Http\Request;
 use Storage;
 use Illuminate\Support\Facades\Validator;
@@ -27,12 +28,18 @@ class ElectionController extends Controller
         $election = Election::where('slug', $slug)->get();
         $inf = Person::where('id_user', auth()->user()->id)->get();
         $requirements = Requirement::where('id_election', $election[0]->id)->get();
-        return view('pages.home.election.candidate', compact('type', 'election', 'inf', 'requirements'));
+        if($type == 'candidato'){
+            $idType = 1;
+        }else{
+            $idType = 2;
+        }
+        return view('pages.home.election.candidate', compact('type', 'election', 'inf', 'requirements', 'idType'));
     }
 
-    public function add (Request $request){
-        return $request;
-        Person::where('id_user', auth()->user()->id)->update([
+    public function add (Request $request, string $slug, int $type){
+
+//        Update basic information
+        $person = Person::where('id_user', auth()->user()->id)->update([
             'name' => $request->name,
             'lastname' => $request->lastname,
             'date_birth' => $request->date_birth,
@@ -45,5 +52,9 @@ class ElectionController extends Controller
             'id_groupP' => $request->date_birth,
             'occupation' => $request->date_birth,
         ]);
+//        Update o create requirements, opc(create electionUser)
+        setElectionUser($person, Election::where('slug', $slug)->pluck('id')[0], $type, $request->requirement);
+
+        
     }
 }

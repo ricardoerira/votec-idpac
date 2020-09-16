@@ -1,6 +1,6 @@
 <input
     type="file"
-    name="r{{$requirement->id}}"
+    name="requirement[{{$requirement->id}}]"
     id="r{{$requirement->id}}"
     class="form-control"
 >
