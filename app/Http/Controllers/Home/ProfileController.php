@@ -20,11 +20,24 @@ class ProfileController extends Controller
         return view('pages.home.profile',compact('inf'));
     }
 
-    public function update(Request $request, object $user)
+    public function update(Request $request)
     {
-       $user->update($request->all());
+        Person::where('id_user', auth()->user()->id)->update([
+            'name' => $request->name,
+            'lastname' => $request->lastname,
+            'date_birth' => $request->date_birth,
+            'sex' => $request->sex,
+            'id_location' => $request->id_location,
+            'address' => $request->address,
+            'phone' => $request->phone,
+            'gender_identity' => $request->gender_identity,
+            'id_disability' => $request->id_disability,
+            'id_groupP' => $request->id_groupP,
+            'occupation' => $request->occupation,
+        ]);
 
-        return back()->withInput()->with(['error' => 'Algo va mal']);
+         //return to the home page
+         return redirect()->route('home')->with(["type" => "success", "message" => 'El usuario ha sido actualizado con éxito']);
     }
 }
 

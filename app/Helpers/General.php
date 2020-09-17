@@ -6,6 +6,7 @@ use App\Models\DataRequirement;
 use App\Models\Election;
 use App\Models\ElectionUser;
 use App\Models\Requirement;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -53,9 +54,16 @@ if (!function_exists('setElectionUser')) {
             foreach ($requirement as $key => $index){
 
                 if ((DataRequirement::where('id_electionUser', $electionUser)->where('id_requirement', $key)->get())->count() > 0){
-                    DataRequirement::where('id_electionUser', $electionUser)->where('id_requirement', $key)->update([
-                        checkTypeInput($key) => $index,
-                    ]);
+                    if(checkTypeInput($key) == 'text'){
+                        DataRequirement::where('id_electionUser', $electionUser)->where('id_requirement', $key)->update([
+                            'text' => $index,
+                        ]);
+                    }else{
+                        DataRequirement::where('id_electionUser', $electionUser)->where('id_requirement', $key)->update([
+                            'id_choice' => $index,
+                        ]);
+                    }
+                    
                 }else{
                     if(checkTypeInput($key) == 'text'){
                         DataRequirement::create([
@@ -73,5 +81,33 @@ if (!function_exists('setElectionUser')) {
                 }
             }
         }
+    }
+}
+
+if (!function_exists('formatDate')) {
+    function formatDate(string $fecha)
+    {
+        $meses = array("Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre");
+        $fecha = Carbon::parse($fecha);
+        $mes = $meses[($fecha->format('n')) - 1];
+        $fecha= $fecha->format('d') . ' de ' . $mes . ' de ' . $fecha->format('Y');
+
+        return $fecha;
+    }
+}
+
+if (!function_exists('valueRequirement')) {
+    function valueRequirement(int $idUser, int $idRequirement)
+    {
+        $resp = "";
+        $dr = DataRequirement::where('id_electionUser', $idUser)->where('id_requirement', $idRequirement)->get();
+        if($dr->count()){
+            if(checkTypeInput($idRequirement) == 'text'){
+                $resp =  $dr[0]->text;
+            }else{
+                $resp = $dr[0]->id_choice;
+            }
+        }
+        return($resp) ;
     }
 }

@@ -32,8 +32,7 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 // Route Profile
 Route::get('/profile', 'Home\ProfileController@index')->name('home.profile');
-Route::put('/profile/{user}', 'Home\ProfileController@update')->name('profile.update');
-Route::get('/reporteDeSalud/{header:slug}', 'Home\ProfileController@editReporte')->name('profile.editReporte');
+Route::put('/profile/update', 'Home\ProfileController@update')->name('profile.update');
 
 //Route Elections
 Route::get('/{slug}', 'Home\ElectionController@index')->name('election.index');

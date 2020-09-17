@@ -7,7 +7,7 @@
 <div class="container mt-5 py-3">
     <div class="card">
         @if ($elections->count() > 0)
-            <div>
+            <div class=" text-center">
                 <h3>Elecciones actuales</h3>
             </div>
             <hr>
@@ -19,6 +19,7 @@
                                     <div class="small-box bg-info">
                                         <div class="inner">
                                             <p>{{ strtoupper($election->title) }}</p>
+                                            <p><b>Fin inscripcion:</b> {{formatDate($election->dateEnd_candidates)}}</p>
                                         </div>
                                             <a href="{{route('election.index', $election->slug)}}" class="small-box-footer">
                                                     Ingresar

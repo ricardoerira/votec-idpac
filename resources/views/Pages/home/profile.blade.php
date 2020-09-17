@@ -10,9 +10,6 @@
       
               <!-- /.card-header -->
               <!-- form start -->
-            <form action="#" method="POST" role="form">
-                @csrf
-                @method('PUT')
                 <div class="content-wrapper mx-sm-5" style="min-height: 1416.81px;">
                   <!-- Content Header (Page header) -->
                   <section class="content-header">
@@ -88,7 +85,7 @@
 
                                 </div>
 
-                                  <form action="#" method="POST" role="form" class="form-inline">
+                              <form action="{{ route('profile.update') }}" method="POST" role="form" class="form-inline">
                                     @csrf
                                     @method('PUT')
                                     @include('layouts.home.election.dataGeneral')
@@ -106,7 +103,6 @@
                     </div>
                   </section>
                 </div>
-            </form>
       </section>
 </section>
 

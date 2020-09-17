@@ -4,7 +4,6 @@
 <header class="header__slider">
     <img class="img1" src='../../images/home/Election/Slide3.jpg'>
 </header>
-
 <!-- type of voter -->
 <body>
   <div class="">
@@ -14,31 +13,47 @@
       <li class="breadcrumb-item active">{{ ucwords($type) }}</li>
     </ol>
   </div>
-  <form action="{{ route('election.add',  ['slug' => $election[0]->slug, 'type'=> $idType ,]) }}" method="POST" role="form" class="form-inline" enctype="multipart/form-data">
+  <form action="{{ route('election.add',  ['slug' => $election[0]->slug, 'type'=> $idType ,]) }}" method="POST" role="form" class="in-line" enctype="multipart/form-data">
         @csrf
         @method('PUT')
-        <div class="container mt-4" name = "general">
-            <div>
-                <h1 class="text-center">{{$type}}</h1>
-                <h3 class="text-center">Información básica </h3>
-            </div>
+  
+        <h1 class="text-center">{{$type}}</h1>
+        <div class="container row d-flex justify-content-center" name = "general">
             @include('layouts.home.election.dataGeneral')
+        </div>
       <div>
-        @if($requirements->count() > 0)
-          <h1>Requisitos</h1>
-          @foreach($requirements as $requirement)
-            <div>
-              @include('pages.home.election.inputs.index')
-            </div>
-          @endforeach
-        @endif
+
+      @if($requirements->count() > 0)
+        <div class="container row d-flex justify-content-center py-4">
+          <table class="">
+            <tr>
+              <th colspan="2" class="text-center">Requisitos</th>
+             </tr>
+            @foreach($requirements as $requirement)
+              @if ($i % 2 <> 0)
+                <tr>
+                  <td class="">
+                    @include('pages.home.election.inputs.index')
+                  </td>
+              @else
+                  <td class="">
+                    @include('pages.home.election.inputs.index')
+                  </td>
+                </tr>
+              @endif
+              {{$i++}}
+            @endforeach
+          </table>
+        </div>
+      @endif
       </div>
-  </form>
-  <div class="w-75 mx-auto pb-4">
-    <div>
-        <button type="submit" class="btn btn-primary m-auto">Guardar</button>
+      <div class="w-75 mx-auto pb-4">
+        <div>
+            <button type="submit" class="btn btn-primary m-auto">Guardar</button>
+        </div>
     </div>
-</div>
+  </form>
+ 
   
 </body>
 

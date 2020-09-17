@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CreateUserRequest;
-use App\Models\IdentificationType;
+use App\Models\Identification_Type;
 use App\Models\Person;
 use App\Providers\RouteServiceProvider;
 use App\User;
@@ -52,7 +52,7 @@ class RegisterController extends Controller
      * @return \Illuminate\Contracts\Validation\Validator
      */
     protected function index (){
-        $types = IdentificationType::all();
+        $types = Identification_Type::all();
         return view('pages.home.auth.register', compact('types'));
     }
 
