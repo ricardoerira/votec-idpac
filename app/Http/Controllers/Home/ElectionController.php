@@ -60,14 +60,15 @@ class ElectionController extends Controller
             'id_disability' => $request->id_disability,
             'id_groupP' => $request->id_groupP,
             'occupation' => $request->occupation,
+            'path' => $request->file('path')->store('documents'),
         ]);
         $person = Person::where('id_user', auth()->user()->id)->pluck('id')[0];
 
 //        Update o create requirements, opc(create electionUser)
         if ($request->requirement <> null){
-            setElectionUser($person, Election::where('slug', $slug)->pluck('id')[0], $type, $request->requirement);
+            setElectionUser($person, Election::where('slug', $slug)->pluck('id')[0], $type, $request, $request->requirement);
         }else{
-            setElectionUser($person, Election::where('slug', $slug)->pluck('id')[0], $type);
+            setElectionUser($person, Election::where('slug', $slug)->pluck('id')[0], $type, $request);
         }
         
         //return to the home page

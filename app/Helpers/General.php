@@ -8,6 +8,7 @@ use App\Models\ElectionUser;
 use App\Models\Requirement;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\DB;
 
 if (!function_exists('selectData')) {
@@ -29,16 +30,19 @@ if (!function_exists('checkTypeInput')) {
     function checkTypeInput(int $id)
     {
         $typeInput = Requirement::where('id', $id)->get();
-        if($typeInput[0]->id_input == 1 || $typeInput[0]->id_input == 5 || $typeInput[0]->id_input == 6){
+        if($typeInput[0]->id_input == 1 || $typeInput[0]->id_input == 5){
             return 'text';
-        }else{
+        }elseif($typeInput[0]->id_input == 6){
+            return 'file';
+        }
+        else{
             return 'id_choice';
         }
     }
 }
 
 if (!function_exists('setElectionUser')) {
-    function setElectionUser(int $idUser, int $election, int $idType, array $requirement = null)
+    function setElectionUser(int $idUser, int $election, int $idType, Request $request, array $requirement = null)
     {
         if((ElectionUser::where('id_person', $idUser)->where('id_election', $election)->where('id_userType', $idType)->get())->count() > 0){
             $electionUser = (ElectionUser::where('id_person', $idUser)->where('id_election', $election)->where('id_userType', $idType)->pluck('id'))[0];
@@ -58,7 +62,12 @@ if (!function_exists('setElectionUser')) {
                         DataRequirement::where('id_electionUser', $electionUser)->where('id_requirement', $key)->update([
                             'text' => $index,
                         ]);
-                    }else{
+                    }elseif(checkTypeInput($key) == 'file'){
+                        DataRequirement::where('id_electionUser', $electionUser)->where('id_requirement', $key)->update([
+                            'text' => $request->file('requirement.' . $key)->store('requirement'),
+                        ]);
+                    }
+                    else{
                         DataRequirement::where('id_electionUser', $electionUser)->where('id_requirement', $key)->update([
                             'id_choice' => $index,
                         ]);
@@ -71,7 +80,14 @@ if (!function_exists('setElectionUser')) {
                             'id_electionUser' => $electionUser,
                             'text' => $index,
                         ]);
-                    }else{
+                    }elseif(checkTypeInput($key) == 'file'){
+                        DataRequirement::create([
+                            'id_requirement' => $key,
+                            'id_electionUser' => $electionUser,
+                            'text' => $request->file('requirement.' . $key)->store('requirement'),
+                        ]);
+                    }
+                    else{
                         DataRequirement::create([
                             'id_requirement' => $key,
                             'id_electionUser' => $electionUser,
@@ -102,7 +118,7 @@ if (!function_exists('valueRequirement')) {
         $resp = "";
         $dr = DataRequirement::where('id_electionUser', $idUser)->where('id_requirement', $idRequirement)->get();
         if($dr->count()){
-            if(checkTypeInput($idRequirement) == 'text'){
+            if(checkTypeInput($idRequirement) == 'text' || checkTypeInput($idRequirement) == 'file'){
                 $resp =  $dr[0]->text;
             }else{
                 $resp = $dr[0]->id_choice;
@@ -111,3 +127,12 @@ if (!function_exists('valueRequirement')) {
         return($resp) ;
     }
 }
+
+if (!function_exists('prueba')) {
+    function prueba(string $txt)
+    {
+        dd(Crypt::decryptString($txt, PATHINFO_FILENAME)) ;
+    }
+}
+
+

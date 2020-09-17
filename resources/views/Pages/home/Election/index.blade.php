@@ -11,7 +11,7 @@
     </ol>
 </div>
 <!-- resolution  -->
-<div class="text-justify px-5 mt-5 "><a href="#">{{$election[0]->description}}</a></div>
+<div class="text-justify px-5 mt-3 "><a href="#">{{$election[0]->description}}</a></div>
 <!-- type of voter -->
 <div class="container mt-2 py-3">
     <div class="card">
