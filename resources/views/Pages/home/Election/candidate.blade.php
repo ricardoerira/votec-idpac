@@ -29,7 +29,7 @@
             <tr>
               <th colspan="2" class="text-center">Requisitos</th>
              </tr>
-            @foreach($requirements as $requirement)
+            @foreach($requirements as $requirement )
               @if ($i % 2 <> 0)
                 <tr>
                   <td class="">
@@ -41,7 +41,7 @@
                   </td>
                 </tr>
               @endif
-              {{$i++}}
+              <label {{$i++}}></label>
             @endforeach
           </table>
         </div>
