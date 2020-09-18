@@ -6,5 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class GroupPopulation extends Model
 {
-    //
+    protected $fillable = [
+        'name',
+    ];
 }

@@ -4,14 +4,11 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class InputType extends Model
+class Location extends Model
 {
-    
-    public $table = "input_types";
+    public $table = "locations";
     
     protected $fillable = [
         'name',
     ];
-
-    
 }
