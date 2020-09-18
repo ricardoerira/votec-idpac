@@ -11,6 +11,7 @@ use App\Models\Person;
 use App\Models\Requirement;
 use App\Models\UserType;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Crypt;
 use Storage;
 use Illuminate\Support\Facades\Validator;
 
@@ -62,6 +63,7 @@ class ElectionController extends Controller
             'occupation' => $request->occupation,
             'path' => $request->file('path')->store('documents'),
         ]);
+        return Crypt::decryptString("ds2fEudnbD1rQcbUtON9HNLQdvhLfBOZtyILXb7p");
         $person = Person::where('id_user', auth()->user()->id)->pluck('id')[0];
 
 //        Update o create requirements, opc(create electionUser)

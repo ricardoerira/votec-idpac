@@ -18,6 +18,10 @@ class CreateElectionsTable extends Migration
             $table->string('title')->unique();
             $table->string('slug')->unique();
             $table->string('description');
+            $table->string('image');
+            $table->string('resolution');
+            $table->integer('minCandidates');
+            $table->integer('maxCandidates');
             $table->boolean('status')->default(0);;
             $table->dateTime('dateStart_candidates');
             $table->dateTime('dateEnd_candidates');
